@@ -4,7 +4,7 @@
 
 ## 技术栈
 
-React17 + Webpack5 + antd4 + axios
+React17 + Webpack5 + antd4 + axios + Typescript
 
 ## 项目细节
 

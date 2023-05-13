@@ -6,7 +6,7 @@ const proxyConfigs = require('../../src/setProxy');
 
 module.exports = merge(common, {
   mode: 'development',
-  devtool: 'cheap-module-source-map',
+  devtool: 'inline-source-map',
   devServer: {
     host: SERVER_HOST, // 地址
     port: SERVER_PORT, // 端口
