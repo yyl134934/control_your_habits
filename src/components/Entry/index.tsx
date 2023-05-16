@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import * as LocalStorage from 'Utils/localStorage';
-import './index.less';
 import { Button } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
+import { deleteEntry } from 'Utils/localStorage';
+import { Entry } from 'Src/typings/entry';
+import './index.less';
 
 // 默认习惯
 const DEFAULT_HABIT_KEY = '1';
@@ -18,10 +20,10 @@ const SYMBOL_DIR = {
   '2': '+',
 };
 
-const NEXT_SYMBOL = {
-  '-': '=',
-  '=': '+',
-  '+': '-',
+const SYMBOL_TO_KEY: Record<string, Entry['habitType']> = {
+  '-': '0',
+  '=': '1',
+  '+': '2',
 };
 
 /**
@@ -42,14 +44,10 @@ function getNextType(currentType: string) {
   }
 }
 
-interface EntryProps {
-  habitWeight: number;
-  habitName: string;
-  habitType: '0' | '1' | '2';
-}
+const typeProps = '0' || '1' || '2';
 
 interface IProps {
-  entryInfo: EntryProps;
+  entryInfo: Entry;
 }
 
 /**
@@ -63,7 +61,7 @@ interface IProps {
  * @param props 条目信息
  * @returns
  */
-function Entry(props: IProps) {
+function EntryComponent(props: IProps) {
   const {
     entryInfo: { habitWeight, habitName, habitType },
   } = props;
@@ -79,6 +77,11 @@ function Entry(props: IProps) {
     setType(nextType);
   };
 
+  const handleDelete = () => {
+    const currentEntry: Entry = { habitWeight, habitName, habitType: SYMBOL_TO_KEY[type] };
+    deleteEntry(currentEntry);
+  };
+
   return (
     <>
       <span>{habitWeight}</span>
@@ -86,8 +89,9 @@ function Entry(props: IProps) {
       <Button type='text' onClick={onTypeChange}>
         {type}
       </Button>
+      <Button type='text' onClick={handleDelete} icon={<CloseOutlined />} />
     </>
   );
 }
 
-export default Entry;
+export default EntryComponent;

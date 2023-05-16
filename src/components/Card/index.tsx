@@ -1,5 +1,5 @@
 import React, { useEffect, useState, SyntheticEvent } from 'react';
-import * as LocalStorage from 'Utils/localStorage';
+import { initCards, addEntry } from 'Utils/localStorage';
 import './index.less';
 import Input from 'antd/lib/input/Input';
 import Entry from '../Entry';
@@ -22,15 +22,6 @@ function getEntries(infos: Array<any>) {
   return entries;
 }
 
-const handleBlur = (event: SyntheticEvent<HTMLInputElement>) => {
-  const {
-    currentTarget: { value },
-  } = event;
-  console.info('添加条目:', value);
-
-  LocalStorage.addEntry(value);
-};
-
 /**
  * 记分卡
  * @param props 卡信息
@@ -42,8 +33,17 @@ function Card(props: IProps) {
   // 习惯列表
   const [entries, setEntries] = useState<Array<any>>([]);
 
+  const handlePressEnter = (event: SyntheticEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value },
+    } = event;
+    console.info('添加条目:', value);
+
+    addEntry(value);
+  };
+
   useEffect(() => {
-    const info = entriesInfo.length === 0 ? LocalStorage.initCards() : entriesInfo;
+    const info = entriesInfo.length === 0 ? initCards() : entriesInfo;
 
     setEntries(getEntries(info));
   }, [entriesInfo]);
@@ -52,7 +52,7 @@ function Card(props: IProps) {
     <div className='custom_card'>
       <div className='card_entries'>
         {[...entries]}
-        <Input onPressEnter={handleBlur} />
+        <Input onPressEnter={handlePressEnter} />
       </div>
     </div>
   );

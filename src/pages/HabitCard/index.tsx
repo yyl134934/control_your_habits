@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getCardsInfo } from 'Src/tools/localStorage';
+import { getCardsInfo } from 'Src/utils/localStorage';
 import { Button } from 'antd';
-import './index.less';
 
 function HabitCard() {
   const [cardNode, setCardNode] = useState(<div />);
