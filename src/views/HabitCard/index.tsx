@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { getCardsInfo } from 'Utils/localStorage';
+import { queryCardInfo } from 'Src/services';
 import Card from 'Components/Card';
 import { Button } from 'antd';
 import './index.less';
+import { useSelector } from 'react-redux';
 
 function HabitCard() {
   const [cardNode, setCardNode] = useState(<div />);
@@ -22,9 +23,9 @@ function HabitCard() {
   }, []);
 
   useEffect(() => {
-    const cardsInfo = getCardsInfo();
+    const cardsInfo = queryCardInfo();
 
-    if (!cardsInfo || cardsInfo.length === 0) {
+    if (cardsInfo?.length === 0) {
       const createBtn = getCreateBtn();
 
       setCardNode(createBtn);

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Entry } from 'Src/typings/entry';
+import { objectEqual, updateObjectInArray } from 'Src/utils';
 
 interface EntriesState {
   entries: Entry[];
@@ -8,7 +9,7 @@ interface EntriesState {
 const initialState: EntriesState = {
   entries: [],
 };
-[].
+
 export const entriesSlice = createSlice({
   name: 'habitCard',
   initialState,
@@ -17,9 +18,15 @@ export const entriesSlice = createSlice({
     addEntry: (state, action: PayloadAction<Entry>) => {
       state.entries.push(action.payload);
     },
-    deleteEntry: (entryInfo) => {},
-    createHabitCard: () => {},
-    updateType: (entryInfo) => {},
+    deleteEntry: (state, action: PayloadAction<Entry>) => {
+      state.entries = state.entries.filter((entry) => objectEqual(entry, action.payload));
+    },
+    createHabitCard: (state, action: PayloadAction<Array<Entry>>) => {
+      state.entries = action.payload;
+    },
+    updateType: (state, action: PayloadAction<Entry>) => {
+      state.entries = updateObjectInArray(state.entries, action.payload);
+    },
   },
 });
 
