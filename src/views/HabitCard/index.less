@@ -1,11 +1,34 @@
 .habit_card {
   display: flex;
-  align-items: center;
+  flex: 1;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
   justify-content: center;
-  height: calc(100% - 84px);
+  width:800px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.habit_card_title{
+  height:50px;
+  margin-left: 10%;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 50px;
 }
 
 .habit_card_btn{
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:100%;
 }
 
+.habit_card_content{
+  display: flex;
+  flex:1;
+  align-items: flex-start;
+  justify-content: center;
+  width:100%;
+}

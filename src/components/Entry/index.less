@@ -1,4 +1,38 @@
-.card_entry {
+.custom_entry {
   display: flex;
+  align-items: center;
   justify-content: center;
+  min-width: 180px;
+  max-width: 180px;
+  margin-bottom: 10px;
+  border-bottom: 1px soild #888;
+  box-shadow: 1px 1px 2px 1px #888;
+}
+
+.entry_delete_btn{
+  visibility: hidden;
+  transition: visibility 0s, opacity 0.5s ease-in-out;
+}
+
+.custom_entry:hover{
+  box-shadow: 2px 2px 3px 2px #888;
+}
+
+.custom_entry:hover .entry_delete_btn{
+  visibility: visible;
+  opacity: 1;
+}
+
+.entry_weight{
+  width:  40px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.entry_name{
+  width:  40px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
 }

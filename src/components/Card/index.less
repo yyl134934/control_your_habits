@@ -1,7 +1,22 @@
 .custom_card {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
   box-sizing: border-box;
   width: 100%;
+  height: 100%;
   padding:80px;
+  border:1px solid #888;
+}
+
+.card_input{
+  order: 3;
+  margin-left: auto;
+
+  .ant-input{
+    width: 180px;
+    height: 32px;
+    line-height: 32px;
+  }
 }

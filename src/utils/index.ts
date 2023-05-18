@@ -46,12 +46,12 @@ export function objectEqual(obj1: any, obj2: any): boolean {
  * @param newVal
  * @returns
  */
-export function updateObjectInArray<T>(arr: T[], newVal: T): T[] {
+export function updateObjectInArray(arr: Entry[], newVal: Entry): Entry[] {
   // 创建新数组副本
-  const newArr: T[] = [...arr];
+  const newArr: Entry[] = [...arr];
 
   // 查找指定属性值的对象，并替换其值
-  const index = newArr.findIndex((obj) => objectEqual(obj, newVal));
+  const index = newArr.findIndex((obj) => obj.habitWeight === newVal.habitWeight);
   if (index !== -1) {
     newArr[index] = newVal;
   }
@@ -64,6 +64,16 @@ export function updateObjectInArray<T>(arr: T[], newVal: T): T[] {
  * 默认习惯类型
  */
 const DEFAULT_HABIT_TYPE = '1';
+
+/**
+ * 是否为Number
+ * @param value
+ * @returns
+ */
+function isNumber(value: string): boolean {
+  const parsedValue = Number.parseFloat(value);
+  return !isNaN(parsedValue) && isFinite(parsedValue);
+}
 
 /**
  * 添加默认值
@@ -86,7 +96,7 @@ export function autoAddDefaultInfo(lastIndex: string, entryInfoStr = ''): any[] 
   if (len === 2) {
     const firstItem = entryInfoArr[0];
     // 如果第一个元素是数字，则补齐 habitType；否则补齐 habitWeight
-    if (typeof firstItem === 'number') {
+    if (isNumber(firstItem)) {
       return [...entryInfoArr, DEFAULT_HABIT_TYPE];
     }
 

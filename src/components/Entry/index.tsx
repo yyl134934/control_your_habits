@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
-import { deleteEntry } from 'Utils/localStorage';
+import { deleteEntryService, updateEntryService } from 'Src/services';
 import { Entry } from 'Src/typings/entry';
+import { deleteEntry, updateEntry } from 'Src/store/redux/entries.redux';
 import './index.less';
+import { useDispatch } from 'react-redux';
 
 // 默认习惯
 const DEFAULT_HABIT_KEY = '1';
@@ -20,12 +22,6 @@ const SYMBOL_DIR = {
   '2': '+',
 };
 
-const SYMBOL_TO_KEY: Record<string, Entry['habitType']> = {
-  '-': '0',
-  '=': '1',
-  '+': '2',
-};
-
 /**
  * 获取下一个符号
  * @param getNextType
@@ -34,13 +30,13 @@ const SYMBOL_TO_KEY: Record<string, Entry['habitType']> = {
 function getNextType(currentType: string) {
   switch (currentType) {
     case '-':
-      return '=';
+      return '1';
     case '=':
-      return '+';
+      return '2';
     case '+':
-      return '-';
+      return '0';
     default:
-      return DEFAULT_HABIT_VALUE;
+      return DEFAULT_HABIT_KEY;
   }
 }
 
@@ -65,32 +61,37 @@ function EntryComponent(props: IProps) {
   const {
     entryInfo: { habitWeight, habitName, habitType },
   } = props;
-  const [type, setType] = useState<string>(SYMBOL_DIR[habitType]);
+  const typeValue = SYMBOL_DIR[habitType];
+  const dispatch = useDispatch();
 
   /**
    * 循环顺序为 = -> + -> -
    * @param currentType
    */
   const onTypeChange = () => {
-    const nextType = getNextType(type);
+    const nextType = getNextType(typeValue);
+    const currentEntry: Entry = { habitWeight, habitName, habitType: nextType };
 
-    setType(nextType);
+    updateEntryService(currentEntry);
+    dispatch(updateEntry(currentEntry));
   };
 
   const handleDelete = () => {
-    const currentEntry: Entry = { habitWeight, habitName, habitType: SYMBOL_TO_KEY[type] };
-    deleteEntry(currentEntry);
+    const currentEntry: Entry = { habitWeight, habitName, habitType };
+
+    deleteEntryService(currentEntry);
+    dispatch(deleteEntry(currentEntry));
   };
 
   return (
-    <>
-      <span>{habitWeight}</span>
-      <span>{habitName}</span>
+    <div className='custom_entry'>
+      <div className='entry_weight'>{habitWeight}</div>
+      <div className='entry_name'>{habitName}</div>
       <Button type='text' onClick={onTypeChange}>
-        {type}
+        {typeValue}
       </Button>
-      <Button type='text' onClick={handleDelete} icon={<CloseOutlined />} />
-    </>
+      <Button type='text' className='entry_delete_btn' onClick={handleDelete} icon={<CloseOutlined />} />
+    </div>
   );
 }
 

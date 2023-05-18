@@ -40,9 +40,18 @@ export function queryCardInfo(): Entry[] {
  * @param {string} newEntryInfo - 待添加条目信息
  */
 export function addEntryService(newEntry: Entry) {
-  const allEntry = queryCardInfo();
+  let allEntry = queryCardInfo();
 
   allEntry.push(newEntry);
+  allEntry = allEntry.sort((a, b) => {
+    if (Number.parseFloat(a.habitWeight) < Number.parseFloat(b.habitWeight)) {
+      return -1;
+    }
+    if (Number.parseFloat(a.habitWeight) > Number.parseFloat(b.habitWeight)) {
+      return 1;
+    }
+    return 0;
+  });
 
   const newCollectStr = JSON.stringify(allEntry);
   localStorage.setItem(HABIT_CARDS, newCollectStr);
