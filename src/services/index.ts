@@ -77,7 +77,7 @@ export function deleteEntryService(entryInfo = {}) {
  * 更新习惯卡信息
  * @param {string} newInfo - 待删除条目信息
  */
-export function updateEntryService(newInfo = {}) {
+export function updateEntryService(newInfo: Entry) {
   console.info('更新习惯卡信息updateEntry:', newInfo);
   const allEntry = queryCardInfo();
 

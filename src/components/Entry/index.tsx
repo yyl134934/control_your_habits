@@ -86,7 +86,9 @@ function EntryComponent(props: IProps) {
   return (
     <div className='custom_entry'>
       <div className='entry_weight'>{habitWeight}</div>
-      <div className='entry_name'>{habitName}</div>
+      <div className='entry_name' title={habitName}>
+        {habitName}
+      </div>
       <Button type='text' onClick={onTypeChange}>
         {typeValue}
       </Button>

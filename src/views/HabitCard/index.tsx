@@ -16,7 +16,7 @@ function HabitCard() {
   const card = useMemo(
     () => (
       <>
-        <div className='habit_card_title'>习惯积分卡（- 坏习惯 = 一般习惯 +好习惯）</div>
+        <div className='habit_card_title'>习惯记分卡（- 坏习惯 = 一般习惯 +好习惯）</div>
         <div className='habit_card_content'>
           <Card entriesInfo={initInfo} />
         </div>

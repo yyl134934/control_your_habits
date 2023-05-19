@@ -66,10 +66,12 @@ function Card(props: IProps) {
   }, [entriesInfo, dispatch]);
 
   return (
-    <div className='custom_card'>
-      {[...entries]}
-      <div className='card_input'>
-        <Input placeholder='按“Enter”键添加' onPressEnter={handlePressEnter} />
+    <div className='custom_card_wrapper'>
+      <div className='custom_card'>
+        {[...entries]}
+        <div className='card_input'>
+          <Input placeholder='按“Enter”键添加' onPressEnter={handlePressEnter} />
+        </div>
       </div>
     </div>
   );

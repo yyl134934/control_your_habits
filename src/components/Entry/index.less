@@ -2,9 +2,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  order:3;
   min-width: 180px;
   max-width: 180px;
   margin-bottom: 10px;
+  padding: 0 5px;
   border-bottom: 1px soild #888;
   box-shadow: 1px 1px 2px 1px #888;
 }
@@ -24,15 +26,20 @@
 }
 
 .entry_weight{
-  width:  40px;
+  width:  30px;
   height: 32px;
   line-height: 32px;
   text-align: center;
+  cursor:default;
 }
 
 .entry_name{
-  width:  40px;
+  width:  60px;
   height: 32px;
+  overflow: hidden;
   line-height: 32px;
+  white-space: nowrap;
   text-align: center;
+  text-overflow: ellipsis;
+  cursor:default;
 }
