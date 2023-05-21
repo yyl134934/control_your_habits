@@ -9,15 +9,20 @@ const common = require('./webpack.common');
 
 const { PROJECT_PATH, shouldOpenAnalyzer, ANALYZER_HOST, ANALYZER_PORT } = require('../constants');
 
+const customCssPath = glob.sync(`${path.resolve(PROJECT_PATH, './src')}/**/*.{tsx,scss,less,css}`);
+const antdCssPath = glob.sync(`${path.resolve(PROJECT_PATH, 'node_modules/antd/dist/antd.css')}`);
+
 module.exports = merge(common, {
   mode: 'production',
   devtool: false,
   plugins: [
     new CleanWebpackPlugin(),
-    new PurgeCSSPlugin({
-      paths: glob.sync(`${path.resolve(PROJECT_PATH, './src')}/**/*.{tsx,scss,less,css}`, { nodir: true }),
-      whitelist: ['html', 'body'],
-    }),
+    // new PurgeCSSPlugin({
+    //   // 需要搜索哪些文件中的无用 CSS 代码
+    //   paths: customCssPath,
+    //   // 排除 antd/dist/antd.css 文件及其依赖的 CSS 文件
+    //   whitelist: ['html', 'body', /^ant-/],
+    // }),
     new webpack.BannerPlugin({
       raw: true,
       banner:

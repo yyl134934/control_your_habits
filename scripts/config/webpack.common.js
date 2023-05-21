@@ -55,42 +55,42 @@ module.exports = {
     'react-dom': 'ReactDOM',
   },
   optimization: {
-    // splitChunks: {
-    //   chunks: 'all',
-    //   minSize: 20000,
-    //   minRemainingSize: 0,
-    //   minChunks: 1,
-    //   maxAsyncRequests: 30,
-    //   maxInitialRequests: 30,
-    //   enforceSizeThreshold: 50000,
-    //   cacheGroups: {
-    //     vendors: {
-    //       // 项目基本框架等
-    //       chunks: 'all',
-    //       test: /[/\\]node_modules[/\\]/,
-    //       priority: -10,
-    //       name: 'vendors',
-    //     },
-    //     'async-commons': {
-    //       // 异步加载公共包、组件等
-    //       chunks: 'async',
-    //       minChunks: 2,
-    //       name: 'async-commons',
-    //       priority: -20,
-    //     },
-    //     commons: {
-    //       // 其他同步加载公共包
-    //       chunks: 'all',
-    //       minChunks: 2,
-    //       name: 'commons',
-    //       priority: -30,
-    //     },
-    //   },
-    // },
     splitChunks: {
       chunks: 'all',
-      minSize: 0,
+      minSize: 20000,
+      minRemainingSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 30,
+      maxInitialRequests: 30,
+      enforceSizeThreshold: 50000,
+      cacheGroups: {
+        vendors: {
+          // 项目基本框架等
+          chunks: 'all',
+          test: /[/\\]node_modules[/\\]/,
+          priority: -10,
+          name: 'vendors',
+        },
+        'async-commons': {
+          // 异步加载公共包、组件等
+          chunks: 'async',
+          minChunks: 2,
+          name: 'async-commons',
+          priority: -20,
+        },
+        commons: {
+          // 其他同步加载公共包
+          chunks: 'all',
+          minChunks: 2,
+          name: 'commons',
+          priority: -30,
+        },
+      },
     },
+    // splitChunks: {
+    //   chunks: 'all',
+    //   minSize: 0,
+    // },
     minimize: !isDev,
     minimizer: [
       !isDev &&
