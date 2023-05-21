@@ -1,11 +1,13 @@
 import React, { useEffect, useState, SyntheticEvent } from 'react';
+import Input from 'antd';
 import { useDispatch } from 'react-redux';
 import { initCard, addEntryService } from 'Src/services';
 import { addEntry, createHabitCard } from 'Src/store/redux/entries.redux';
 import { autoAddDefaultInfo, stringToEntry } from 'Src/utils';
-import './index.less';
-import Input from 'antd/lib/input/Input';
+import ClearableInput from './ClearableInput';
 import Entry from '../Entry';
+import useClearableInput from './hooks';
+import './index.less';
 
 interface IProps {
   entriesInfo: Array<any>;
@@ -34,6 +36,8 @@ function Card(props: IProps) {
   const { entriesInfo } = props;
   const dispatch = useDispatch();
 
+  console.info('[Card]渲染!!!');
+
   // 习惯列表
   const [entries, setEntries] = useState<Array<any>>([]);
 
@@ -50,7 +54,6 @@ function Card(props: IProps) {
     try {
       addEntryService(newEntry);
       dispatch(addEntry(newEntry));
-      currentTarget.textContent = '';
     } catch (error) {
       console.error('添加习惯条目失败:', error);
     }
@@ -70,7 +73,7 @@ function Card(props: IProps) {
       <div className='custom_card'>
         {[...entries]}
         <div className='card_input'>
-          <Input placeholder='按“Enter”键添加' onPressEnter={handlePressEnter} />
+          <ClearableInput placeholder='按“Enter”键添加' onPressEnter={handlePressEnter} />
         </div>
       </div>
     </div>
