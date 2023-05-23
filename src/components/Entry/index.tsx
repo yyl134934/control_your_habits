@@ -6,6 +6,7 @@ import { Entry } from 'Src/typings/entry';
 import { deleteEntry, updateEntry } from 'Src/store/redux/entries.redux';
 import './index.less';
 import { useDispatch } from 'react-redux';
+import { useColor } from './hooks';
 
 // 默认习惯
 const DEFAULT_HABIT_KEY = '1';
@@ -63,6 +64,7 @@ function EntryComponent(props: IProps) {
   } = props;
   const typeValue = SYMBOL_DIR[habitType];
   const dispatch = useDispatch();
+  const [styles] = useColor(habitType);
 
   /**
    * 循环顺序为 = -> + -> -
@@ -84,7 +86,7 @@ function EntryComponent(props: IProps) {
   };
 
   return (
-    <div className='custom_entry'>
+    <div className='custom_entry' {...styles}>
       <div className='entry_weight'>{habitWeight}</div>
       <div className='entry_name' title={habitName}>
         {habitName}

@@ -5,9 +5,9 @@ import useClearableInput from './hooks';
 type ClearableInputProps = InputProps;
 
 export const ClearableInput: React.FC<ClearableInputProps> = ({ ...props }) => {
-  const inputProps = useClearableInput();
+  const clearableInputProps = useClearableInput();
 
-  return <Input {...inputProps} {...props} />;
+  return <Input {...clearableInputProps} {...props} />;
 };
 
 export default ClearableInput;
